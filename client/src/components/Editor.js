@@ -25,7 +25,7 @@ const Editor = (props) => {
         <br/>
         <button>Run</button>
         <br/>
-        <textarea readonly rows="25" columns="80" className="editor-window" value={output}/>
+        <textarea readOnly rows="25" columns="80" className="editor-window" value={output}/>
       </form>
     </div>
   );

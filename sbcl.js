@@ -2,17 +2,18 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const {v4: uuidv4} = require('uuid');
 
-process.on('message', (message) => {
+process.on('message', (data) => {
     const fileName = `scripts/${uuidv4()}.lisp`;
+    const wrapCode = (code) => [code, '(exit)'].join('');
 
-    fs.writeFile(fileName, message, (err) => {
+    fs.writeFile(fileName, wrapCode(data), (err) => {
         if (err) {
             process.send('ERROR!');
         }
 
-        const sbcl = exec(`sbcl --load ${fileName}`, function (error, stdout, stderr) {
+        const sbcl = exec(`sbcl --disable-debugger --load ${fileName}`, function (error, stdout, stderr) {
             if (error || stderr) {
-                process.send('ERROR!');
+                process.send(`ERROR: ${stderr}`);
             } else {
                 process.send(stdout);
             }

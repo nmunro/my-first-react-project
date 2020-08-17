@@ -11,16 +11,15 @@ app.get('/', async(req, res) => {
 });
 
 app.post('/run', async(req, res) => {
-    const code = req.body.code.endsWith('(exit)') ? req.body.code : `${req.body.code}\n(exit)`;
     const output = fork('sbcl.js');
 
-    console.log(`Code: ${code}`);
-
     output.on('message', (m) => {
-        res.status(200).send(m.slice(361)); // Remember if output is missing this number may be wrong
+        // Remember if output is missing this number (361) may be wrong
+        //res.status(200).send(m.slice(361));
+        res.status(200).send(m);
     });
 
-    output.send(code);
+    output.send(req.body.code);
 });
 
 console.log('App online');
