@@ -7,13 +7,18 @@
     "bootstrap": "npm install -d && cd client && npm install -d",
     "main": "node main.js",
     "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axois": "0.0.1-security",
     "express": "^4.17.1",
     "mongoose": "^5.10.0",
+    "react-monaco-editor": "^0.39.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {

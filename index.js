@@ -10,14 +10,17 @@ app.get('/', async(req, res) => {
     res.status(200).json({alive: true});
 });
 
-app.get('/run-lisp', async(req, res) => {
+app.post('/run', async(req, res) => {
+    const code = req.body.code.endsWith('(exit)') ? req.body.code : `${req.body.code}\n(exit)`;
     const output = fork('sbcl.js');
 
+    console.log(`Code: ${code}`);
+
     output.on('message', (m) => {
-        res.status(200).send(m.slice(383));
+        res.status(200).send(m.slice(361)); // Remember if output is missing this number may be wrong
     });
 
-    output.send('(format t "Hello world!~%")\n(exit)\n');
+    output.send(code);
 });
 
 console.log('App online');
