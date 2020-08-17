@@ -11,3 +11,7 @@ You will need to install the following (if you haven't already)
     git clone https://github.com/nmunro/my-first-react-project.git
     cd my-first-react-project
     npm run bootstrap
+
+# Run (debug)
+
+    npm run dev
