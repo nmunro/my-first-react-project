@@ -1,14 +1,22 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {UnControlled as CodeMirror} from 'react-codemirror2';
 import './Editor.css';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material-darker.css';
+import 'codemirror/keymap/vim';
+import 'codemirror/mode/commonlisp/commonlisp';
 
 
 const Editor = (props) => {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
-
-  const updateCode = (event) => {
-    setCode(event.target.value);
+  const options = {
+    mode: 'commonlisp',
+    styleActiveLine: true,
+    keyMap: 'vim',
+    theme: 'material-darker',
+    lineNumbers: true
   };
 
   const send = (event) => {
@@ -21,11 +29,20 @@ const Editor = (props) => {
   return (
     <div className="Editor">
       <form onSubmit={send}>
-        <textarea onChange={updateCode} rows="25" columns="80" className="editor-window" value={code}/>
-        <br/>
         <button>Run</button>
         <br/>
-        <textarea readOnly rows="25" columns="80" className="editor-window" value={output}/>
+        <CodeMirror
+          className='editor-pane'
+          value='(format t "Hello World!~%")'
+          options={options}
+          onChange={(editor, data, value) => {
+            setCode(value);
+          }}
+        />
+        <br/>
+        <hr/>
+        <br/>
+        <textarea className='boxsizingBorder' readOnly rows="25" columns="120" className="editor-window" value={output}/>
       </form>
     </div>
   );

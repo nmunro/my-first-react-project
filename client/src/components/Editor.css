@@ -1,4 +1,15 @@
-.editor-window {
-  width: 90%;
-  height: 90%;
+.Editor {
+  text-align: left;
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+}
+
+.boxsizingBorder {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
