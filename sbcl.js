@@ -19,8 +19,15 @@ process.on('message', (data) => {
             }
         });
 
-        sbcl.on('exit', function (code) {
+        sbcl.on('exit', (code) => {
             console.log(`Done: ${code}`);
+            fs.unlink(fileName, (err) => {
+                if (err) {
+                    console.log('Failed to delete file!');
+                } else {
+                    console.log('File deleted!');
+                }
+            })
         });
     });
 });
