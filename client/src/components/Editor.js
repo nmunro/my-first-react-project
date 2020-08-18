@@ -1,4 +1,8 @@
 import React, {useState} from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import {UnControlled as CodeMirror} from 'react-codemirror2';
 import './Editor.css';
@@ -30,22 +34,26 @@ const Editor = (props) => {
   };
 
   return (
-    <div className="Editor">
-      <form onSubmit={send}>
-        <button id="run" onClick={send}>Run</button>
-        <button id="clear" onClick={send}>Clear</button>
-        <br/>
-        <CodeMirror
-          className='editor-pane'
-          value={code}
-          options={options}
-          onChange={(editor, data, value) => {
-            setCode(value);
-          }}
-        />
-        <textarea className='boxsizingBorder' readOnly rows="25" columns="120" value={output}/>
-      </form>
-    </div>
+    <Row className="Editor">
+      <Col>
+        <form onSubmit={send}>
+          <ButtonGroup aria-label="Control buttons">
+            <Button id="run" variant="info" onClick={send}>Run</Button>
+            <Button id="clear" variant="info" onClick={send}>Clear</Button>
+          </ButtonGroup>
+          <br/>
+          <CodeMirror
+            className='editor-pane'
+            value={code}
+            options={options}
+            onChange={(editor, data, value) => {
+              setCode(value);
+            }}
+          />
+          <textarea readOnly rows="20" columns="80" value={output}/>
+        </form>
+      </Col>
+    </Row>
   );
 }
 
